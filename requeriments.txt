@@ -1,3 +1,6 @@
 Flask
 wtforms
 pydantic
+simpleflake
+Flask-Pydantic
+flask-swagger
