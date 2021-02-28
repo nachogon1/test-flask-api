@@ -30,8 +30,6 @@ create_user_model = api.model(
     }
 )
 
-
-
 create_post_model = api.model(
     'CreatePostModel',
     {
