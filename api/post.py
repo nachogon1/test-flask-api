@@ -1,5 +1,3 @@
-from typing import Union
-
 from flask_pydantic import validate
 
 from database.post import posts
@@ -45,9 +43,6 @@ def edit_post(query: UserRef, body: Post):
 @validate()
 def give_like(query: UserPostRef):
     # TODO: in reality we should connect it to user
-    # update_post(body.id, body.post)
-    import pdb
-    pdb.set_trace()
     post = posts.get_by_id(query.post_id)
     try:
         post.likes.remove(query.user_id)
@@ -61,8 +56,6 @@ def give_like(query: UserPostRef):
 @bp.route('/post/comment', methods=['POST'])
 @validate()
 def make_comment(query: UserPostRef, body: Comment):
-    import pdb
-    pdb.set_trace()
     post = posts.get_by_id(query.post_id)
     body.author_id = query.user_id
     post.comments.append(body)
