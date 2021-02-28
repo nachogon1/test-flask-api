@@ -7,7 +7,7 @@ from simpleflake import simpleflake
 
 
 class Base(BaseModel):
-    id: Optional[int]
+    id: Optional[str]
     created: datetime = datetime.utcnow()
     changed: Optional[datetime] = None
 

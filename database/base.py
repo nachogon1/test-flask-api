@@ -2,11 +2,18 @@ from utils.utils import unwrap_list
 
 
 class BaseDB:
-    values = []
+
+    def __init__(self):
+        self.values = []
 
     def get_by_id(self, _id):
-        results = [val for val in self.values if val.id == _id]
-        return unwrap_list(results)
+        import pdb
+        pdb.set_trace()
+        for val in self.values:
+            if val.id == _id:
+                return val
+        #results = [val for val in self.values if val.id == _id]
+        #return unwrap_list(results)
 
     def insert(self, new_object):
         self.values.append(new_object)

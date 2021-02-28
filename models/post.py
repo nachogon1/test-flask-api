@@ -6,23 +6,28 @@ from pydantic.main import BaseModel
 from simpleflake import simpleflake, parse_simpleflake
 
 from models.base import Base
-from models.user import User
+from models.user import User, UserRef
 
 
 class Comment(BaseModel):
     text: str
-    author: int = None
+    author_id: str = None
+
+class PostRef(BaseModel):
+    post_id: str
+
+
+class UserPostRef(UserRef, PostRef):
+    pass
 
 
 class PostModel(BaseModel):
     title: str
     description: str = None
-    likes: List[int] = Field(default=[])
-    comments: Optional[List[Comment]] = Field(default=None)
+    likes: List[str] = Field(default=[])
+    comments: Optional[List[Comment]] = Field(default=[])
 
 
-class PostRef(BaseModel):
-    post_id: int
 
 
 class Post(Base, PostModel):

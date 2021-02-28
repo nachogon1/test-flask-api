@@ -4,10 +4,10 @@ from flask_pydantic import validate
 
 from database.post import posts
 from database.user import users
-from models.post import Post, PostModel, PostRef, Comment
+from models.post import Post, PostModel, PostRef, Comment, UserPostRef
 
 from flask import (
-    Blueprint
+    Blueprint, jsonify
 )
 
 from models.user import UserRef
@@ -22,7 +22,7 @@ def get_all_posts():
 
     This option should only be available for admins.
     """
-    return {"posts": [post.dict() for post in posts]}
+    return jsonify([post.dict() for post in posts.values])
 
 
 @bp.route('/post', methods=['GET'])
@@ -41,25 +41,30 @@ def edit_post(query: UserRef, body: Post):
     return body.dict()
 
 
-@bp.route('/post', methods=['PUT'])
+@bp.route('/post/like', methods=['PUT'])
 @validate()
-def give_like(query: UserRef, body: Post):
+def give_like(query: UserPostRef):
     # TODO: in reality we should connect it to user
     # update_post(body.id, body.post)
+    import pdb
+    pdb.set_trace()
+    post = posts.get_by_id(query.post_id)
     try:
-        body.likes.remove(query.user_id)
+        post.likes.remove(query.user_id)
     except ValueError:
-        body.likes.append(query.user_id)
+        post.likes.append(query.user_id)
 
-    posts.update(body.id, body)  # Mock insert in db.
-    return body.dict()
+    posts.update(post.id, post)  # Mock insert in db.
+    return post.dict()
 
 
 @bp.route('/post/comment', methods=['POST'])
 @validate()
-def make_comment(query: Union[UserRef, PostRef], body: Comment):
+def make_comment(query: UserPostRef, body: Comment):
+    import pdb
+    pdb.set_trace()
     post = posts.get_by_id(query.post_id)
-    body.author = query.user_id
+    body.author_id = query.user_id
     post.comments.append(body)
     posts.update(post.id, post)  # Mock insert in db.
     return body.dict()
