@@ -46,7 +46,7 @@ def make_comment(query: UserPostRef, body: Comment):
 def create_post(query: UserRef, body: PostModel):
     post = Post(**body.dict())
     user = users.get_by_id(query.user_id)
-    user.post_ids.append(post)
+    user.post_ids.append(post.id)
     users.update(query.user_id, user)
     posts.insert(post)  # Mock insert in db.
     return post.dict()
