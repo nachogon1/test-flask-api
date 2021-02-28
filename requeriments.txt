@@ -4,3 +4,5 @@ pydantic
 simpleflake
 Flask-Pydantic
 flask-swagger
+pytest
+mock
