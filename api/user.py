@@ -1,12 +1,8 @@
 from flask_pydantic import validate
-from simpleflake import simpleflake
-
-from database.post import posts
 from database.user import users
-# from models.post import Post
 
 from flask import (
-    Blueprint, request, jsonify
+    Blueprint, jsonify
 )
 
 from models.user import UserModel, User, UserRef
