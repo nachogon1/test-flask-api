@@ -2,6 +2,12 @@ from typing import List
 
 from pydantic import Field, BaseModel
 
+from models.base import Base
+
+
+class UserRef(BaseModel):
+    user_id: int
+
 
 class UserModel(BaseModel):
     username: str = Field(...)
@@ -11,5 +17,5 @@ class UserModel(BaseModel):
     # TODO: comment why scale bad these points ids and how I would solve it.
 
 
-class User(BaseModel):
-    id: int
+class User(Base, UserModel):
+    pass

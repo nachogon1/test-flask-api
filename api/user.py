@@ -1,14 +1,15 @@
+from flask_pydantic import validate
 from simpleflake import simpleflake
 
 from database.post import posts
 from database.user import users
-from models.post import Post
+# from models.post import Post
 
 from flask import (
-    Blueprint, request
+    Blueprint, request, jsonify
 )
 
-from models.user import UserModel
+from models.user import UserModel, User, UserRef
 
 bp = Blueprint('user', __name__, url_prefix='/api')
 
@@ -19,30 +20,37 @@ bp = Blueprint('user', __name__, url_prefix='/api')
 # TODO: remove post from user
 # TODO: add like system
 
+@bp.route('/users', methods=['GET'])
+def get_all_users():
+    return jsonify([user.dict() for user in users.values])
+
+
+@bp.route('/user', methods=['GET'])
+@validate()
+def get_user(query: UserRef):
+    return users.get_by_id(query.user_id).dict()  # Mock insert in db.
+
 
 @bp.route('/user', methods=['POST'])
-def create_user(user: UserModel):
+@validate()
+def create_user(body: UserModel):
     """
     swagger_file: create_post.yml
     """
-    user_info = user.dict()
-    user_info['id'] = simpleflake()
-    users.append(user_info)  # Mock insert in db.
-    return user_info
+    user = User(**body.dict())
+    users.insert(user)  # Mock insert in db.
+    return user.dict()
 
 
-@bp.route('/post/<post_id>', methods=['PUT'])
-def edit_post(post_id):
-    # TODO: find in db
-    #  update point
-    # db["post"]
-    post = Post(**request.get_json(force=True))
-    posts.append(post)  # Mock insert in db.
-    return post.dict()
+@bp.route('/user', methods=['PUT'])
+@validate()
+def edit_user(query: UserRef, body: User):
+    # TODO: in reality we should connect it to user
+    return users.update(query.user_id, body).dict()
 
 
-@bp.route('/post/<post_id>', methods=['POST'])
-def delete_post(post_id: int):
-    pass
+@bp.route('/user', methods=['DELETE'])
+def delete_user(query: UserRef):
+    return users.delete_user(query.user_id)
 
 

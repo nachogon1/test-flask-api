@@ -1,13 +1,7 @@
-from utils.utils import unwrap_list
+from database.base import BaseDB
 
-posts = []
-
-
-def get_post(post_id):
-    post = [post for post in posts if post.id == post_id]
-    return unwrap_list(post)
+posts = BaseDB()
 
 
-def get_post_from_user(user):
-    post = [post for post in posts if post.id in user.comments]
-    return unwrap_list(post)
+
+

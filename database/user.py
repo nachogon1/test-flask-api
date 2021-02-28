@@ -1,9 +1,13 @@
-users = []
+from database.base import BaseDB
+from models.user import User
 
-
-def get_user(user_id):
-    user = [user for user in users if user.id == user_id]
-    if user:
-        return user[0]
-    else:
-        return None
+users = BaseDB()
+# Create a god for testing purposes.
+users.values.append(
+    User(
+        id=1,
+        username="god",
+        first_name="god",
+        last_name="god"
+    )
+)
