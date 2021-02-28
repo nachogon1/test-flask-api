@@ -6,3 +6,4 @@ Flask-Pydantic
 flask-swagger
 pytest
 mock
+flask-restplus
