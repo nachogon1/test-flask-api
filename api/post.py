@@ -4,7 +4,7 @@ from database.post import posts
 from database.user import users
 from models.post import Post, PostModel, Comment, UserPostRef
 
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, abort, Response
 
 from models.user import UserRef
 
@@ -20,6 +20,8 @@ def get_all_posts():
 @validate()
 def give_like(query: UserPostRef):
     post = posts.get_by_id(query.post_id)
+    if not post:
+        abort(404)
     try:
         post.likes.remove(query.user_id)
     except ValueError:
@@ -36,7 +38,7 @@ def make_comment(query: UserPostRef, body: Comment):
     body.author_id = query.user_id
     post.comments.append(body)
     posts.update(post.id, post)  # Mock insert in db.
-    return body.dict()
+    return post.dict()
 
 
 @bp.route("/post", methods=["POST"])
