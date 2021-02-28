@@ -18,6 +18,9 @@ You can test the api in swagger by going to http://127.0.0.1:5000
 -Create Comment (Don't forget to change the post_id):
  `curl -X POST 'http://127.0.0.1:5000/api/post/comment?user_id=1&post_id=<PASTE_POST_ID_FROM_RESPONSE>'   -H "Content-Type: application/json" -d '{"text": "Me", "description":"With my friends."}'`
 
+## Test:
+Write in the base folder of the project
+`pytest`
 
 ## Caveats:
 Right now everybody can get, edit, create, and delete posts. 
