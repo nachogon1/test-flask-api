@@ -6,10 +6,14 @@ KEYS = ["id", "created", "changed"]
 def test_user(test_client):
 
     # Test create user
-    response = test_client.post("/api/user",
-                                json={"username": "test_username",
-                                      "first_name": "test_first_name",
-                                      "last_name": "test_last_name"})
+    response = test_client.post(
+        "/api/user",
+        json={
+            "username": "test_username",
+            "first_name": "test_first_name",
+            "last_name": "test_last_name",
+        },
+    )
 
     assert response.status_code == 200
     assert response.headers["Content-Type"] == "application/json"
@@ -25,7 +29,3 @@ def test_user(test_client):
     result = response.json
     assert type(result) == list
     assert len(result) == 1
-
-
-
-

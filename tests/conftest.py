@@ -17,6 +17,7 @@ def app():
 
 def teardown_db():
     import pdb
+
     pdb.set_trace()
     posts.values = []
     users.values = []
@@ -26,4 +27,3 @@ def teardown_db():
 def test_client(app):
     teardown_db()
     yield app.test_client()
-

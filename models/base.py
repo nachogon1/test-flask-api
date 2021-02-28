@@ -11,14 +11,14 @@ class Base(BaseModel):
     created: datetime = datetime.utcnow()
     changed: Optional[datetime] = None
 
-    @validator('id', pre=True, always=True)
+    @validator("id", pre=True, always=True)
     def always_id(cls, v, values):
         if v:
             return v
         else:
             return simpleflake()
 
-    @validator('changed', always=True)
+    @validator("changed", always=True)
     def always_changed(cls, v, values):
         if not values.get("changed"):
             return values["created"]  # It would better to parse the timestamp.

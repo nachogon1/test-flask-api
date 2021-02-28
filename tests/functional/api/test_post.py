@@ -7,10 +7,14 @@ KEYS = ["id", "created", "changed"]
 def test_post(test_client):
 
     # Create a user to add a post to
-    response = test_client.post("/api/user",
-                                json={"username": "test_username",
-                                      "first_name": "test_first_name",
-                                      "last_name": "test_last_name"})
+    response = test_client.post(
+        "/api/user",
+        json={
+            "username": "test_username",
+            "first_name": "test_first_name",
+            "last_name": "test_last_name",
+        },
+    )
 
     assert response.status_code == 200
     assert response.headers["Content-Type"] == "application/json"
@@ -21,11 +25,10 @@ def test_post(test_client):
     assert len(test_user.post_ids) == 0
 
     # Create post to user
-    response = test_client.post(f"/api/post?user_id={user_id}",
-                                json={
-                                    "title": "test_title",
-                                    "description": "test_description"
-                                })
+    response = test_client.post(
+        f"/api/post?user_id={user_id}",
+        json={"title": "test_title", "description": "test_description"},
+    )
     assert response.status_code == 200
     assert response.headers["Content-Type"] == "application/json"
     result = response.json
@@ -56,7 +59,3 @@ def test_post(test_client):
     assert all([key in result for key in KEYS])
     # Check that the post has one like.
     assert len(posts.get_by_id(post_id).likes) == 0
-
-
-
-

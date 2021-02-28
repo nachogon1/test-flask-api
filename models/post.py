@@ -29,4 +29,3 @@ class PostModel(BaseModel):
 
 class Post(Base, PostModel):
     pass
-

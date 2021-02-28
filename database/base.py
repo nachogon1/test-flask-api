@@ -1,5 +1,4 @@
 class BaseDB:
-
     def __init__(self):
         self.values = []
 
