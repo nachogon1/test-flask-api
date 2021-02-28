@@ -1,6 +1,9 @@
 ## Initialize:
 `export FLASK_APP=main.py; python -m flask run`
 
+## Swagger:
+You can test the api in swagger by going to http://127.0.0.1:5000
+
 ## Example curl:
 
 -Create User:
