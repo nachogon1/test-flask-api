@@ -16,9 +16,7 @@ def app():
 
 
 def teardown_db():
-    import pdb
-
-    pdb.set_trace()
+    
     posts.values = []
     users.values = []
 
