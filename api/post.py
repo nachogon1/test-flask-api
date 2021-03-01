@@ -50,6 +50,3 @@ def create_post(query: UserRef, body: PostModel):
     users.update(query.user_id, user)
     posts.insert(post)  # Mock insert in db.
     return post.dict()
-
-
-# TODO comment on why 2 collections. Make comment as colection?

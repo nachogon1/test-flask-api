@@ -14,7 +14,6 @@ class UserModel(BaseModel):
     first_name: str = Field(...)
     last_name: str = Field(...)
     post_ids: List[str] = []
-    # TODO: comment why scale bad these points ids and how I would solve it.
 
 
 class User(Base, UserModel):
