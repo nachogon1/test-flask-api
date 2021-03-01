@@ -28,7 +28,7 @@ create_user_model = api.model(
     {
         "username": fields.String(required=True),
         "first_name": fields.String(required=True),
-        "last_name": fields.String(required=False),
+        "last_name": fields.String(required=True),
     },
 )
 
@@ -49,7 +49,6 @@ create_comment = api.model(
 @ns.route("/users")
 class UsersSwagger(Resource):
     @ns.doc("list_users")
-    @ns.marshal_list_with(user_model)
     def get(self):
         """List all users"""
         pass
