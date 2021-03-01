@@ -16,7 +16,7 @@ def app():
 
 
 def teardown_db():
-    
+
     posts.values = []
     users.values = []
 

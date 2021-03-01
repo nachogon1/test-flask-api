@@ -38,7 +38,7 @@ def test_post(test_client):
     test_user = users.get_by_id(user_id)
     assert len(test_user.post_ids) == 1
     # Check that it is the created post.
-    assert test_user.post_ids[0].id == post_id
+    assert test_user.post_ids[0] == post_id
     # Check that the post has no likes.
     assert len(posts.get_by_id(post_id).likes) == 0
 
