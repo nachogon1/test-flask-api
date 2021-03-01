@@ -15,17 +15,18 @@ You can test the api in swagger by going to http://127.0.0.1:5000
 -Create Post:
 `curl -X POST 'http://127.0.0.1:5000/api/post?user_id=1' -H "Content-Type: application/json"  -d '{"title": "In the beach", "description":"Falling down is an excuse to get back again."}'`
 
+-Get all Users
+`curl -X GET 'http://127.0.0.1:5000/api/users'`
+
+-Get all posts
+`curl -X GET 'http://127.0.0.1:5000/api/posts'`
+
 -Give Like (Don't forget to change the post_id, to dislike send another like):
 `curl -X PUT 'http://127.0.0.1:5000/api/post/like?user_id=1&post_id=<PASTE_POST_ID_FROM_RESPONSE>'`
 
 -Create Comment (Don't forget to change the post_id):
  `curl -X POST 'http://127.0.0.1:5000/api/post/comment?user_id=1&post_id=<PASTE_POST_ID_FROM_RESPONSE>'   -H "Content-Type: application/json" -d '{"text": "Me", "description":"With my friends."}'`
 
--Get all Users
-curl -X GET 'http://127.0.0.1:5000/api/users'
-
--Get all posts
-curl -X GET 'http://127.0.0.1:5000/api/posts'
 
 ## Test:
 Write in the base folder of the project
